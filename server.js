@@ -18,10 +18,10 @@ connectDB();
 // Middleware
 app.use(express.json());
 
-// Placeholder route to confirm server is running
-app.get('/', (req, res) => {
-    res.send('Finance API is running');
-});
+// Routes
+app.use('/api/auth', require('./routes/auth'));
+
+app.get('/', (req, res) => res.send('Finance API is running'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
