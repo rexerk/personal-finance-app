@@ -45,8 +45,9 @@ node seed.js
 ```
 
 ## Default Test Users
-(add these once seed script is written)
-
+email: john@example.com  password: password123
+email: jane@example.com  password: password123
+`
 ## Building for Production
 ```bash
 ng build
