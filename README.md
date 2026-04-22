@@ -22,8 +22,10 @@ npm install
 
 ### 3. Configure environment variables
 Create a `.env` file in the project root:
+```bash
 MONGO_URI=your_mongodb_connection_string
 PORT=3000
+```
 
 ### 4. Run the backend server
 ```bash
@@ -45,8 +47,10 @@ node seed.js
 ```
 
 ## Default Test Users
+```bash
 email: john@example.com  password: password123
 email: jane@example.com  password: password123
+```
 `
 ## Building for Production
 ```bash
