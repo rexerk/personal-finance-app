@@ -1,5 +1,6 @@
 const express = require('express');
 const connectDB = require('./db');
+const cors = require('cors');
 require('dotenv').config();
 
 // Import all models
@@ -16,6 +17,7 @@ const app = express();
 connectDB();
 
 // Middleware
+app.use(cors({ origin: 'http://localhost:4200' }));
 app.use(express.json());
 
 // Routes
