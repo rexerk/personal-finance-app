@@ -21,19 +21,6 @@ router.get('/', auth, async (req, res) => {
     }
 });
 
-// GET single budget by ID
-router.get('/:id', auth, async (req, res) => {
-    try {
-        const budget = await Budget.findOne({ _id: req.params.id, user_id: req.user.userId })
-            .populate('category_id', 'category_name category_type');
-
-        if (!budget) return res.status(404).json({ error: 'Budget not found.' });
-        res.status(200).json(budget);
-    } catch (err) {
-        res.status(500).json({ error: 'Failed to fetch budget.' });
-    }
-});
-
 // GET budget vs actual spending report
 // Non-trivial query #3: $lookup to join budgets with actual spending
 router.get('/reports/vs-actual', auth, async (req, res) => {
@@ -201,6 +188,19 @@ router.get('/reports/income-vs-expense', auth, async (req, res) => {
         res.status(200).json(result);
     } catch (err) {
         res.status(500).json({ error: 'Failed to generate income vs expense summary.' });
+    }
+});
+
+// GET single budget by ID
+router.get('/:id', auth, async (req, res) => {
+    try {
+        const budget = await Budget.findOne({ _id: req.params.id, user_id: req.user.userId })
+            .populate('category_id', 'category_name category_type');
+
+        if (!budget) return res.status(404).json({ error: 'Budget not found.' });
+        res.status(200).json(budget);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch budget.' });
     }
 });
 

@@ -76,21 +76,6 @@ router.get('/', auth, async (req, res) => {
     }
 });
 
-// GET single transaction
-router.get('/:id', auth, async (req, res) => {
-    try {
-        const transaction = await Transaction.findById(req.params.id)
-            .populate('account_id',  'account_name')
-            .populate('category_id', 'category_name category_type')
-            .populate('tag_ids',     'tag_name');
-
-        if (!transaction) return res.status(404).json({ error: 'Transaction not found.' });
-        res.status(200).json(transaction);
-    } catch (err) {
-        res.status(500).json({ error: 'Failed to fetch transaction.' });
-    }
-});
-
 // GET monthly spending summary by category
 // Non-trivial query #1: aggregation with grouping
 router.get('/reports/monthly-summary', auth, async (req, res) => {
@@ -160,6 +145,21 @@ router.get('/reports/high-value', auth, async (req, res) => {
         res.status(200).json(transactions);
     } catch (err) {
         res.status(500).json({ error: 'Failed to fetch high-value transactions.' });
+    }
+});
+
+// GET single transaction
+router.get('/:id', auth, async (req, res) => {
+    try {
+        const transaction = await Transaction.findById(req.params.id)
+            .populate('account_id',  'account_name')
+            .populate('category_id', 'category_name category_type')
+            .populate('tag_ids',     'tag_name');
+
+        if (!transaction) return res.status(404).json({ error: 'Transaction not found.' });
+        res.status(200).json(transaction);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to fetch transaction.' });
     }
 });
 
